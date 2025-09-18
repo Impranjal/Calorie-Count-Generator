@@ -21,6 +21,6 @@ def login(user: UserLogin, db: Session = Depends(get_db)):
     service = DatabaseUser()
     try:
         token = service.login(db, user.email, user.password)
-        return {"access_token": token, "token_type": "bearer"}
+        return {"access_token": token, "token_type": "bearer","msg":"Logged In"}
     except ValueError as e:
         raise HTTPException(status_code=401, detail=str(e))

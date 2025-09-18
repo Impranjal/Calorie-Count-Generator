@@ -12,10 +12,11 @@ class CalorieRequest(BaseModel):
         return v
     
 class CalorieResponse(BaseModel):
-    dish_name:str
-    servings:int
-    calories_per_servings: int
-    total_servings: int =Field(...,min_length=1)
-    source: str = "USDA FoodData Capital"
+    dish_name: str
+    servings: int
+    calories_per_serving: int
+    total_calories: int
+    match_score: float
+    source: str = "USDA FoodData Central"
 
     

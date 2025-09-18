@@ -33,7 +33,7 @@ class DatabaseUser(UserAuth):
 
     def login(self,db: Session, email: str,password: str):
         user = db.query(UserData).filter(UserData.email == email).first()
-        if not user or not Hash.verify(password, user.password):
+        if not user or not Hash.verify(user.password,password):
             raise ValueError("Invalid Credentials")
         return Hash.create_token(str(user.id))
   

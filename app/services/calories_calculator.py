@@ -6,7 +6,7 @@ class CalorieCalcultor:
         self.matcher = CalorieMatcher()
 
     async def process(self, dish_name: str, servings: int):
-        foods = await self.fetcher.fetch(dish_name)
+        foods = await self.fetcher.fetch_calorie(dish_name)
         if not foods:
             return None
 
@@ -14,7 +14,7 @@ class CalorieCalcultor:
         if not best_food:
             return None
 
-        calories = self._extract_calories(best_food)
+        calories = int(round(self._extract_calories(best_food)))
         return {
             "dish_name": best_food.get("description"),
             "servings": servings,
@@ -25,8 +25,14 @@ class CalorieCalcultor:
         }
 
     def _extract_calories(self, food: dict) -> float:
+        calories = 0
         for nutrient in food.get("foodNutrients", []):
-            name = nutrient.get("nutrientName", "").lower()
-            if "energy" in name and "kcal" in name:
-                return nutrient.get("value", 0)
-        return 0
+            if "energy" in nutrient.get("nutrientName", "").lower():
+                calories = float(nutrient.get("value", 0))
+                break
+        serving_size = food.get("servingSize", 100)  # default 100g
+        if serving_size != 100:
+            calories = calories * (serving_size / 100)
+
+        return calories
+

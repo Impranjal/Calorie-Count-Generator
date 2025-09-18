@@ -16,12 +16,16 @@ class Hash():
     def verify(hashed_password,plain_password):
         return pwd_cxt.verify(plain_password,hashed_password)
     
-    def create_access_token(data: dict, expires_delta: Optional[timedelta] = None):
-        to_encode = data.copy()
+    def create_token(data, expires_delta: Optional[timedelta] = None):
+        if isinstance(data, str):
+            to_encode = {"user_id": data}
+        else:
+            to_encode = data.copy()
         if expires_delta:
             expire = datetime.utcnow() + expires_delta
         else:
             expire = datetime.utcnow() + timedelta(minutes=settings.JWT_EXPIRY_MIN)
+
         to_encode.update({"exp": expire})
-        encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
+        encoded_jwt = jwt.encode(to_encode, settings.JWT_SECERT_KEY, algorithm=settings.JWT_ALGORITHM)
         return encoded_jwt
