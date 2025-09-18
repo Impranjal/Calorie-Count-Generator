@@ -2,7 +2,7 @@ from abc import ABC,abstractmethod
 from typing import Optional
 
 
-class AuthInterface(ABC):
+class UserAuth(ABC):
     @abstractmethod
     def register(self,*args,**kwargs):
         pass

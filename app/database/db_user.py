@@ -2,9 +2,9 @@ from sqlalchemy.orm.session import Session
 from schema.users_schema import UsersRegister
 from database.models import UserData
 from app.auth.hash import Hash
-from services.interface import AuthInterface
+from services.interface import UserAuth
 
-class Auth(AuthInterface):
+class DatabaseUser(UserAuth):
     def register(self,db: Session, request: UsersRegister):
         new_user = UserData(
             first_name=request.firstname,
