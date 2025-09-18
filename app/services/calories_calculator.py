@@ -1,6 +1,5 @@
 from app.services.calorie_fetcher import CalorieFetcher
 from app.services.calorie_matcher import  CalorieMatcher
-
 class CalorieCalcultor:
     def __init__(self):
         self.fetcher = CalorieFetcher()

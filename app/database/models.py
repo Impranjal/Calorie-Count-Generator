@@ -8,7 +8,7 @@ from sqlalchemy.sql.schema import ForeignKey
 class UserData(Base):
     __tablename__ ="users"
     id = Column(Integer, primary_key=True, index=True)
-    first_name = Column(String, nullable=False)
-    last_name = Column(String, nullable=False)
-    email = Column(String, unique=True, index=True, nullable=False)
-    password = Column(String, nullable=False)
+    first_name = Column(String)
+    last_name = Column(String)
+    email = Column(String, unique=True)
+    password = Column(String)

@@ -6,7 +6,7 @@ class UsersRegister(BaseModel):
     first_name: str = Field(...,min_length=2,max_length=100)
     last_name:str=Field(...,min_length=2,max_length=100)
     email:EmailStr
-    password: str = Field(...,min_length=8,max_length=100)
+    password:str = Field(...,min_length=8,max_length=100)
 
     @validator("first_name","last_name")
     def validate_name(cls,v):
@@ -14,6 +14,7 @@ class UsersRegister(BaseModel):
             raise ValueError("Name must be 2 characters long")
         if not re.match(r'^[a-zA-Z\s\'-]+$',v):
             raise ValueError("Name can have letters ,spaces and extra characters")
+        return v
         
     @validator("password")
     def validate_password(cls,v):
@@ -32,3 +33,9 @@ class UsersRegister(BaseModel):
 class UserLogin(BaseModel):
     email: EmailStr
     password:str = Field(...,min_length=8,max_length=100)
+
+class UserDisplay(BaseModel):
+    username:str
+    email:str
+    class Config():
+        orm_mode = True

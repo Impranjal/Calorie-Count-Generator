@@ -13,7 +13,7 @@ class CalorieRequest(BaseModel):
     
 class CalorieResponse(BaseModel):
     dish_name:str
-    servings:str
+    servings:int
     calories_per_servings: int
     total_servings: int =Field(...,min_length=1)
     source: str = "USDA FoodData Capital"

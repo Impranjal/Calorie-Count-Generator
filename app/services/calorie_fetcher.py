@@ -2,7 +2,7 @@ import httpx
 from app.config_loader import settings
 
 class CalorieFetcher:
-    def __init__(self, api_key:settings.API_KEY, http_timeout:int=10):
+    def __init__(self, api_key:str=settings.API_KEY, http_timeout:int=10):
         if not api_key: 
             raise RuntimeError("API Credentials missing")
         self._api_key = api_key
@@ -13,7 +13,7 @@ class CalorieFetcher:
         params = {
             "query":dish_name,
             "api_key":self._api_key,
-            "pagesize": page_size
+            "pagesize": page_size or 1
         }
         async with httpx.AsyncClient() as client:
                 res = await client.get(url, params=params)
