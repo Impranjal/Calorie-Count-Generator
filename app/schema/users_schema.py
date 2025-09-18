@@ -6,7 +6,7 @@ class UsersRegister(BaseModel):
     first_name: str = Field(...,min_length=2,max_length=100)
     last_name:str=Field(...,min_length=2,max_length=100)
     email:EmailStr
-    password:str = Field(...,min_length=8,max_length=100)
+    password: str = Field(...,min_length=8,max_length=100)
 
     @validator("first_name","last_name")
     def validate_name(cls,v):

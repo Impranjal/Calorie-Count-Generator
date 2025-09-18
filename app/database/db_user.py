@@ -7,7 +7,7 @@ from app.services.interface import UserAuth
 class DatabaseUser(UserAuth):
     def register(self,db: Session, request: UsersRegister):
         new_user = UserData(
-            first_name=request.firstname,
+            first_name=request.first_name,
             last_name=request.last_name,
             email=request.email,
             password=Hash.bcrypt(request.password)

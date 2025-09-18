@@ -4,7 +4,10 @@ from app.database.db import get_db
 from app.database.db_user import DatabaseUser
 from app.schema.users_schema import UsersRegister,UserLogin
 
-router = APIRouter()
+router = APIRouter(
+    prefix="/auth",
+    tags= "Authentication"
+)
 db_user = DatabaseUser()
 
 @router.post("/register")
