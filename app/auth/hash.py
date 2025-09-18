@@ -4,12 +4,10 @@ from passlib.context import CryptContext
 from typing import Optional
 from datetime import datetime, timedelta
 from jose import jwt
+from app.config_loader import settings
 pwd_cxt = CryptContext(schemes="bcrypt",deprecated='auto')
 oauth_scheme = OAuth2PasswordBearer(tokenUrl="token")
 
-SECRET_KEY = os.getenv("JWT_SECERT_KEY", "supersecret")
-ALGORITHM = os.getenv("JWT_ALGORITHM", "HS256")
-JWT_EXPIRY_MIN = int(os.getenv("JWT_EXPIRY_MIN", "60"))
 
 class Hash():
     def bcrypt(password:str):
@@ -23,7 +21,7 @@ class Hash():
         if expires_delta:
             expire = datetime.utcnow() + expires_delta
         else:
-            expire = datetime.utcnow() + timedelta(minutes=JWT_EXPIRY_MIN)
+            expire = datetime.utcnow() + timedelta(minutes=settings.JWT_EXPIRY_MIN)
         to_encode.update({"exp": expire})
-        encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
+        encoded_jwt = jwt.encode(to_encode, settings.SECRET_KEY, algorithm=settings.ALGORITHM)
         return encoded_jwt
