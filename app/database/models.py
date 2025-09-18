@@ -1,5 +1,5 @@
 
-from database.db import Base
+from app.database.db import Base
 from sqlalchemy import Column
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql.sqltypes import Integer,String,Boolean

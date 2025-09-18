@@ -1,8 +1,8 @@
 from sqlalchemy.orm.session import Session
-from schema.users_schema import UsersRegister
-from database.models import UserData
+from app.schema.users_schema import UsersRegister
+from app.database.models import UserData
 from app.auth.hash import Hash
-from services.interface import UserAuth
+from app.services.interface import UserAuth
 
 class DatabaseUser(UserAuth):
     def register(self,db: Session, request: UsersRegister):
